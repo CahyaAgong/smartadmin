@@ -71,7 +71,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
+              <a href="{{route('pengumuman')}}" class="nav-link <?php if(Request::segment(1) == 'pengumuman'){?> active <?php } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Pengumuman</p>
               </a>
@@ -83,7 +83,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
+              <a href="{{route('runningtext')}}" class="nav-link <?php if(Request::segment(1) == 'runningtext'){?> active <?php } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Running Text</p>
               </a>
@@ -145,16 +145,20 @@
           </a>
         </li>
 
-        <!-- Laporan Menu -->
-        <li class="nav-header">Laporan</li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Akun Terdaftar
-            </p>
-          </a>
-        </li>
+
+        <?php
+        if (Auth::user()->Is_Admin == 1) { ?>
+          <!-- Laporan Menu -->
+          <li class="nav-header">Laporan</li>
+          <li class="nav-item">
+            <a href="{{route('account')}}" class="nav-link <?php if(Request::segment(1) == 'account'){?> active <?php } ?>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Akun Terdaftar
+              </p>
+            </a>
+          </li>
+      <?php } ?>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

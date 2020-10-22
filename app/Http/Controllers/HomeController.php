@@ -28,4 +28,16 @@ class HomeController extends Controller
     public function agenda(){
         return view('pages/agenda/index');
     }
+
+    public function pengumuman(){
+        return view('pages/pengumuman/index');
+    }
+
+    public function runningtext(){
+        return view('pages/runningtext/index');
+    }
+
+    public function account(){
+        return view('pages/account/index');
+    }
 }

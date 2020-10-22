@@ -138,8 +138,16 @@
 
         var lastIndex = 0;
 
-        // Get Data
+        //set index
         firebase.database().ref('Agenda/').on('value', function (snapshot) {
+            var value = snapshot.val();
+            $.each(value, function (index, value) {
+                lastIndex = index;
+            });
+        });
+
+        // Get Data
+        firebase.database().ref('Agenda/').orderByChild('desaId').equalTo("{{ Auth::id() }}").on('value', function (snapshot) {
             var value = snapshot.val();
             var htmls = [];
             $.each(value, function (index, value) {
@@ -153,7 +161,7 @@
                   		<button data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="' + index + '">Delete</button></td>\
                   	</tr>');
                   }
-                lastIndex = index;
+                // lastIndex = index;
             });
             $('#tbody').html(htmls);
             $("#submitUser").removeClass('desabled');
@@ -171,7 +179,7 @@
                 judul: judul,
                 rincian: rincian,
                 waktu: waktu,
-                desaId: 2,
+                desaId: "{{Auth::id()}}",
             });
 
             // Reassign lastID value
@@ -212,7 +220,7 @@
                 judul: values[0].value,
                 rincian: values[1].value,
                 waktu: values[2].value,
-                desaId: 3,
+                desaId: "{{Auth::id()}}",
             };
 
             var updates = {};
