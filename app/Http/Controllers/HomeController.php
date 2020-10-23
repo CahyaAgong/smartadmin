@@ -40,4 +40,24 @@ class HomeController extends Controller
     public function account(){
         return view('pages/account/index');
     }
+
+    public function slider(){
+        return view('pages/slider/index');
+    }
+
+    public function foto(){
+        return view('pages/foto/index');
+    }
+
+    public function video(){
+        return view('pages/video/index');
+    }
+
+    public function text(){
+        return view('pages/text/index');
+    }
+
+    public function logo(){
+        return view('pages/logo/index');
+    }
 }

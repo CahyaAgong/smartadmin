@@ -59,13 +59,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
+              <a href="{{route('slider')}}" class="nav-link <?php if(Request::segment(1) == 'slider'){?> active <?php } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Gambar Slider</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
+              <a href="{{route('video')}}" class="nav-link <?php if(Request::segment(1) == 'video'){?> active <?php } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Video</p>
               </a>
@@ -77,7 +77,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
+              <a href="{{route('foto')}}" class="nav-link <?php if(Request::segment(1) == 'foto'){?> active <?php } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Foto</p>
               </a>
@@ -90,8 +90,11 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
+
+        <li class="nav-item has-treeview <?php if(Request::segment(1) == 'text'
+         || Request::segment(1) == 'logo' ){ ?> menu-open <?php } ?>">
+          <a href="#" class="nav-link <?php if(Request::segment(1) == 'text'
+           || Request::segment(1) == 'logo' ){ ?> active <?php } ?>">
             <i class="nav-icon fas fa-wrench"></i>
             <p>
               Setting Apps
@@ -100,25 +103,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="./index.html" class="nav-link">
+              <a href="{{route('text')}}" class="nav-link <?php if(Request::segment(1) == 'text'){?> active <?php } ?>">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Nama Aplikasi</p>
+                <p>Text Aplikasi</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="./index2.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Domisili / Tempat</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Alamat</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
+              <a href="{{route('logo')}}" class="nav-link <?php if(Request::segment(1) == 'logo'){?> active <?php } ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Logo</p>
               </a>

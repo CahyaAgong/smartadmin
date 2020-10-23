@@ -18,9 +18,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/agenda', 'HomeController@agenda')->name('agenda');
+Route::get('/slider', 'HomeController@slider')->name('slider');
+Route::get('/video', 'HomeController@video')->name('video');
+Route::get('/foto', 'HomeController@foto')->name('foto');
 Route::get('/pengumuman', 'HomeController@pengumuman')->name('pengumuman');
 Route::get('/runningtext', 'HomeController@runningtext')->name('runningtext');
 Route::get('/account', 'HomeController@account')->name('account');
+Route::get('/text', 'HomeController@text')->name('text');
+Route::get('/logo', 'HomeController@logo')->name('logo');
 
 Route::group(['prefix' => 'account'], function () {
   Route::get('/getAccount', 'AccountController@getAccount')->name('account.get');

@@ -5,10 +5,19 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <!-- jQuery -->
   <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
   <!-- SWAl -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+  <!-- Kendo -->
+  <script src="{{ asset('kendoui/js/kendo.all.min.js') }}"></script>
+  <!-- jquery-validation -->
+  <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <!-- Font Awesome -->

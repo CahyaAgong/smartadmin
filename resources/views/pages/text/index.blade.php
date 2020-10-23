@@ -20,13 +20,23 @@
                     <div class="card-body">
                         <h5>Add Data</h5>
                         <br>
-                        <form id="addRunningtext" role="form" method="POST" action="">
+                        <form id="addText" role="form" method="POST" action="">
                             <div class="form-group mx-sm-3 mb-2">
-                                <label for="runningtext" class="sr-only">Running Text</label>
-                                <input id="runningtext" type="text" class="form-control" name="runningtext" placeholder="Running Text"
+                                <label for="text1" class="sr-only">Text 1</label>
+                                <input id="text1" type="text" class="form-control" name="text1" placeholder="Text 1"
                                        autofocus>
                             </div>
-                            <button id="submitRunningtext" type="button" class="btn btn-primary mb-2 mx-sm-3">Submit</button>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="text2" class="sr-only">Text 2</label>
+                                <input id="text2" type="text" class="form-control" name="text2" placeholder="Text 2"
+                                       autofocus>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="text3" class="sr-only">Text 3</label>
+                                <input id="text3" type="text" class="form-control" name="text3" placeholder="Text 3"
+                                       autofocus>
+                            </div>
+                            <button id="submitText" type="button" class="btn btn-primary mb-2 mx-sm-3">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -39,7 +49,9 @@
                       <table class="table table-hover table-bordered" style="overflow:auto;">
                           <tr>
                               <th>#</th>
-                              <th>Running Text</th>
+                              <th>Text 1</th>
+                              <th>Text 2</th>
+                              <th>Text 3</th>
                               <th width="180" class="text-center">Action</th>
                           </tr>
                           <tbody id="tbody">
@@ -71,7 +83,7 @@
                               <button type="button" class="btn btn-light"
                                       data-dismiss="modal">Close
                               </button>
-                              <button type="button" class="btn btn-success updateRunningtext">Update
+                              <button type="button" class="btn btn-success updateText">Update
                               </button>
                           </div>
                       </div>
@@ -128,7 +140,7 @@
 
         var form = document.getElementById("formAdd");
         //set index
-        firebase.database().ref('RunningText/').on('value', function (snapshot) {
+        firebase.database().ref('TextApps/').on('value', function (snapshot) {
             var value = snapshot.val();
             $.each(value, function (index, value) {
                 lastIndex = index;
@@ -136,7 +148,7 @@
         });
 
         // Get Data
-        firebase.database().ref('RunningText/').orderByChild('desaId').equalTo("{{ Auth::id() }}").on('value', function (snapshot) {
+        firebase.database().ref('TextApps/').orderByChild('desaId').equalTo("{{ Auth::id() }}").on('value', function (snapshot) {
             var value = snapshot.val();
             var htmls = [];
             if (value != null) {
@@ -145,14 +157,16 @@
                   if (value) {
                       htmls.push('<tr>\
                     		<td>' + index + '</td>\
-                    		<td>' + value.runningtext + '</td>\
+                    		<td>' + value.text1 + '</td>\
+                    		<td>' + value.text2 + '</td>\
+                    		<td>' + value.text3 + '</td>\
                     		<td><button data-toggle="modal" data-target="#update-modal" class="btn btn-info updateData" data-id="' + index + '">Update</button>\
                     		<button data-toggle="modal" data-target="#remove-modal" style="display:none;" class="btn btn-danger removeData" data-id="' + index + '">Delete</button></td>\
                     	</tr>');
                     }
                   // lastIndex = index;
               });
-            }else {
+            }else{
                 form.style.display = "block";
             }
             $('#tbody').html(htmls);
@@ -160,45 +174,64 @@
         });
 
         // Add Data
-        $('#submitRunningtext').on('click', function () {
-            var values = $("#addRunningtext").serializeArray();
-            var runningtext = values[0].value;
-            var runningtextID = lastIndex + 1;
+        $('#submitText').on('click', function () {
+            var values = $("#addText").serializeArray();
+            var text1 = values[0].value;
+            var text2 = values[1].value;
+            var text3 = values[2].value;
+            var textID = lastIndex + 1;
 
-            firebase.database().ref('RunningText/' + runningtextID).set({
-                runningtext: runningtext,
+            firebase.database().ref('TextApps/' + textID).set({
+                text1: text1,
+                text2: text2,
+                text3: text3,
                 desaId: "{{Auth::id()}}",
             });
 
             // Reassign lastID value
-            lastIndex = runningtextID;
-            $("#addRunningtext input").val("");
+            lastIndex = textID;
+            $("#addText input").val("");
         });
 
         // Update Data
         var updateID = 0;
         $('body').on('click', '.updateData', function () {
             updateID = $(this).attr('data-id');
-            firebase.database().ref('RunningText/' + updateID).on('value', function (snapshot) {
+            firebase.database().ref('TextApps/' + updateID).on('value', function (snapshot) {
                 var values = snapshot.val();
-                var updateData = '<div class="form-group">\
-    		        <label for="runningtext_update" class="col-md-12 col-form-label">Running Text</label>\
+                var updateData =
+            '<div class="form-group">\
+    		        <label for="text1_update" class="col-md-12 col-form-label">Text 1</label>\
     		        <div class="col-md-12">\
-    		            <input id="runningtext_update" type="text" class="form-control" name="update_runningtext" value="' + values.runningtext + '" required autofocus>\
+    		            <input id="text1_update" type="text" class="form-control" name="update_text1" value="' + values.text1 + '" required autofocus>\
     		        </div>\
-    		    </div>';
+    		    </div>\
+            <div class="form-group">\
+                <label for="text2_update" class="col-md-12 col-form-label">Text 2</label>\
+                <div class="col-md-12">\
+                    <input id="text2_update" type="text" class="form-control" name="update_text2" value="' + values.text2 + '" required autofocus>\
+                </div>\
+            </div>\
+            <div class="form-group">\
+                <label for="text3_update" class="col-md-12 col-form-label">Text 3</label>\
+                <div class="col-md-12">\
+                    <input id="text3_update" type="text" class="form-control" name="update_text3" value="' + values.text3 + '" required autofocus>\
+                </div>\
+            </div>';
                 $('#updateBody').html(updateData);
             });
         });
-        $('.updateRunningtext').on('click', function () {
+        $('.updateText').on('click', function () {
             var values = $(".users-update-record-model").serializeArray();
             var postData = {
-                runningtext: values[0].value,
+                text1: values[0].value,
+                text2: values[1].value,
+                text3: values[2].value,
                 desaId: "{{ Auth::id() }}",
             };
 
             var updates = {};
-            updates['/RunningText/' + updateID] = postData;
+            updates['/TextApps/' + updateID] = postData;
 
             firebase.database().ref().update(updates);
             $("#update-modal").modal("hide");
@@ -213,7 +246,7 @@
         $('.deleteRecord').on('click', function () {
             var values = $(".users-remove-record-model").serializeArray();
             var id = values[0].value;
-            firebase.database().ref('RunningText/' + id).remove();
+            firebase.database().ref('TextApps/' + id).remove();
             $('body').find('.users-remove-record-model').find("input").remove();
             $("#remove-modal").modal('hide');
         });
