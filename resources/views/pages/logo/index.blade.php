@@ -19,13 +19,13 @@
                 <div id="formAdd" class="card card-default" style="margin:20px;">
                   <div class="card-body">
                     <h5># Add File</h5>
-                      <form id="addFile" class="" method="POST" action="" enctype="multipart/form-data">
+                      <form id="addFile" class="" method="POST" enctype="multipart/form-data">
                           <div class="form-group mb-2">
                               <label for="file" class="sr-only">file upload : </label>
                               <input id="file" type="file" class="form-control" name="file"  placeholder="Name"
                                      required autofocus multiple>
                           </div>
-                          <button id="submitFile" type="button" class="btn btn-primary mb-2">Submit</button>
+                          <button id="submitFile" type="submit" class="btn btn-primary mb-2">Submit</button>
                       </form>
                   </div>
                 </div>
@@ -53,7 +53,7 @@
           </div>
 
           <!-- Update Model -->
-          <form action="" method="POST" class="users-update-record-model form-horizontal">
+          <form id="editform" action="" method="POST" class="users-update-record-model form-horizontal">
               <div id="update-modal" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
                    aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" style="width:55%;">
@@ -71,7 +71,7 @@
                               <button type="button" class="btn btn-light"
                                       data-dismiss="modal">Close
                               </button>
-                              <button type="button" class="btn btn-success updateFoto">Update
+                              <button type="submit" class="btn btn-success updateFoto">Update
                               </button>
                           </div>
                       </div>
@@ -165,7 +165,8 @@
         });
 
         // Submit File
-        $('#submitFile').on('click', function () {
+        $('#addFile').on('submit', function (e) {
+          e.preventDefault();
         // Create a root reference
         var storageRef = firebase.storage().ref();
         // File or Blob named mountains.jpg
@@ -273,7 +274,8 @@
             });
         });
 
-        $('.updateFoto').on('click', function () {
+        $('#editform').on('submit', function (e) {
+          e.preventDefault();
           // Create a root reference
           var storageRef = firebase.storage().ref();
           // File or Blob named mountains.jpg

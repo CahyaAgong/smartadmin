@@ -26,6 +26,12 @@ Route::get('/runningtext', 'HomeController@runningtext')->name('runningtext');
 Route::get('/account', 'HomeController@account')->name('account');
 Route::get('/text', 'HomeController@text')->name('text');
 Route::get('/logo', 'HomeController@logo')->name('logo');
+Route::get('/member', 'HomeController@member')->name('member');
+
+Route::group(['prefix' => 'member'], function () {
+  Route::post('/editMember', 'MemberController@editMember')->name('member.edit');
+  Route::post('/editPass', 'MemberController@editPass')->name('member.editpass');
+});
 
 Route::group(['prefix' => 'account'], function () {
   Route::get('/getAccount', 'AccountController@getAccount')->name('account.get');

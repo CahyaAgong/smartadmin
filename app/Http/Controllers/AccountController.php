@@ -10,6 +10,12 @@ use Auth;
 
 class AccountController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getAccount()
     {
       $getdata = DB::table('users')->get();

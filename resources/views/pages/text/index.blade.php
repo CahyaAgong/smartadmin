@@ -24,19 +24,19 @@
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="text1" class="sr-only">Text 1</label>
                                 <input id="text1" type="text" class="form-control" name="text1" placeholder="Text 1"
-                                       autofocus>
+                                       required autofocus>
                             </div>
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="text2" class="sr-only">Text 2</label>
                                 <input id="text2" type="text" class="form-control" name="text2" placeholder="Text 2"
-                                       autofocus>
+                                       required autofocus>
                             </div>
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="text3" class="sr-only">Text 3</label>
                                 <input id="text3" type="text" class="form-control" name="text3" placeholder="Text 3"
-                                       autofocus>
+                                       required autofocus>
                             </div>
-                            <button id="submitText" type="button" class="btn btn-primary mb-2 mx-sm-3">Submit</button>
+                            <button id="submitText" type="submit" class="btn btn-primary mb-2 mx-sm-3">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
           </div>
 
           <!-- Update Model -->
-          <form action="" method="POST" class="users-update-record-model form-horizontal">
+          <form id="editform" action="" method="POST" class="users-update-record-model form-horizontal">
               <div id="update-modal" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
                    aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" style="width:55%;">
@@ -83,7 +83,7 @@
                               <button type="button" class="btn btn-light"
                                       data-dismiss="modal">Close
                               </button>
-                              <button type="button" class="btn btn-success updateText">Update
+                              <button type="submit" class="btn btn-success updateText">Update
                               </button>
                           </div>
                       </div>
@@ -174,7 +174,8 @@
         });
 
         // Add Data
-        $('#submitText').on('click', function () {
+        $('#addText').on('submit', function (e) {
+            e.preventDefault();
             var values = $("#addText").serializeArray();
             var text1 = values[0].value;
             var text2 = values[1].value;
@@ -221,7 +222,8 @@
                 $('#updateBody').html(updateData);
             });
         });
-        $('.updateText').on('click', function () {
+        $('#editform').on('submit', function (e) {
+            e.preventDefault();
             var values = $(".users-update-record-model").serializeArray();
             var postData = {
                 text1: values[0].value,

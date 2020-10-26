@@ -60,4 +60,8 @@ class HomeController extends Controller
     public function logo(){
         return view('pages/logo/index');
     }
+
+    public function member(){
+        return view('pages/member/index');
+    }
 }

@@ -14,7 +14,7 @@
   </ul>
 
   <!-- SEARCH FORM -->
-  <form class="form-inline ml-3"  style="display:none;">
+  <form class="form-inline ml-3" style="display:none;">
     <div class="input-group input-group-sm">
       <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
       <div class="input-group-append">
@@ -24,7 +24,7 @@
       </div>
     </div>
   </form>
-
+  <div class="nav-link" id="demo" style="font-size:12px; color:#fff;"></div>
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <li class="nav-item" style="display:none;">

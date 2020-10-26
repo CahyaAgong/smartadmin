@@ -23,10 +23,10 @@
                         <form id="addPengumuman" method="POST" action="">
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="pengumuman" class="sr-only">Name</label>
-                                <input id="pengumuman" type="text" class="form-control" name="pengumuman" placeholder="Isi Pengumuman"
+                                <input id="pengumuman" type="text" class="form-control" name="pengumuman" required placeholder="Isi Pengumuman"
                                        autofocus>
                             </div>
-                            <button id="submitPengumuman" type="button" class="btn btn-primary mb-2 mx-sm-3">Submit</button>
+                            <button id="submitPengumuman" type="submit" class="btn btn-primary mb-2 mx-sm-3">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
           </div>
 
           <!-- Update Model -->
-          <form action="" method="POST" class="users-update-record-model form-horizontal">
+          <form id="editform" action="" method="POST" class="users-update-record-model form-horizontal">
               <div id="update-modal" data-backdrop="static" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel"
                    aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" style="width:55%;">
@@ -71,7 +71,7 @@
                               <button type="button" class="btn btn-light"
                                       data-dismiss="modal">Close
                               </button>
-                              <button type="button" class="btn btn-success updateAgenda">Update
+                              <button type="submit" class="btn btn-success updateAgenda">Update
                               </button>
                           </div>
                       </div>
@@ -154,7 +154,8 @@
         });
 
         // Add Data
-        $('#submitPengumuman').on('click', function () {
+        $('#addPengumuman').on('submit', function (e) {
+            e.preventDefault();
             var values = $("#addPengumuman").serializeArray();
             var pengumuman = values[0].value;
             var pengumumanID = lastIndex + 1;
@@ -184,7 +185,8 @@
                 $('#updateBody').html(updateData);
             });
         });
-        $('.updateAgenda').on('click', function () {
+        $('#editform').on('submit', function (e) {
+            e.preventDefault();
             var values = $(".users-update-record-model").serializeArray();
             var postData = {
                 pengumuman: values[0].value,

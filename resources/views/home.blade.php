@@ -36,14 +36,22 @@
         @include('layouts._sidebar')
       @section('content')
         <div class="content-wrapper">
-          <div style="margin-top:10px">
-            <center>
-              <h1>
-                <b>
-                  Welcome {{ Auth::user()->name }} !!
-                </b>
-              </h1>
-            </center>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card" style="margin:15px;">
+                  <div class="card-body">
+                    <center>
+                      <h1>
+                        <b>
+                          Welcome {{ Auth::user()->name }} !!
+                        </b>
+                      </h1>
+                    </center>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
     </div>
