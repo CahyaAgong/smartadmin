@@ -21,9 +21,21 @@
                     <h5># Add File</h5>
                       <form id="addFile" class="" method="POST" action="" enctype="multipart/form-data">
                           <div class="form-group mb-2">
-                              <label for="file" class="sr-only">file upload : </label>
-                              <input id="file" type="file" class="form-control" name="file"  placeholder="Name"
-                                     required autofocus multiple>
+                              <div class="form-group mx-sm-3 mb-2">
+                                  <label for="judul_kegiatan" class="sr-only">Judul Kegiatan</label>
+                                  <input id="judul_kegiatan" type="text" class="form-control" name="judul_kegiatan" required placeholder="Isi Judul"
+                                         autofocus>
+                              </div>
+                              <div class="form-group mx-sm-3 mb-2">
+                                  <label for="isi_kegiatan" class="sr-only">Isi Kegiatan</label>
+                                  <input id="isi_kegiatan" type="text" class="form-control" name="isi_kegiatan" required placeholder="Isi Kegiatan"
+                                         autofocus>
+                              </div>
+                              <div class="form-group mx-sm-3 mb-2">
+                                <label for="file" class="sr-only">file upload : </label>
+                                <input id="file" type="file" class="form-control" name="file"  placeholder="Name"
+                                       required autofocus multiple>
+                              </div>
                           </div>
                           <button id="submitFile" type="submit" class="btn btn-primary mb-2">Submit</button>
                       </form>
@@ -37,7 +49,8 @@
                     <div class="table-responsive">
                       <table class="table table-hover table-bordered" style="overflow:auto;">
                           <tr>
-                              <th>Name</th>
+                              <th>Judul</th>
+                              <th>Rincian</th>
                               <th>Image</th>
                               <th width="180" class="text-center">Action</th>
                           </tr>
@@ -149,8 +162,9 @@
                 form.style.display = "none";
                 $.each(value, function (index, value) {
                     if (value) {
-                        htmls.push('<tr>\
-                    <td>' + value.image + '</td>\
+                    htmls.push('<tr>\
+                    <td>' + value.judul_kegiatan + '</td>\
+                    <td>' + value.isi_kegiatan + '</td>\
                     <td> <img src="' + value.url + '" width="400" height="400" /></td>\
                     <td><button data-toggle="modal" data-target="#update-modal" class="btn btn-info updateData" data-id="' + index + '">Update</button>\
                     <button data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="' + index + '">Delete</button></td>\
@@ -162,8 +176,9 @@
                 form.style.display = "block";
                 $.each(value, function (index, value) {
                     if (value) {
-                        htmls.push('<tr>\
-                    <td>' + value.image + '</td>\
+                    htmls.push('<tr>\
+                    <td>' + value.judul_kegiatan + '</td>\
+                    <td>' + value.isi_kegiatan + '</td>\
                     <td> <img src="' + value.url + '" width="400" height="400" /></td>\
                     <td><button data-toggle="modal" data-target="#update-modal" class="btn btn-info updateData" data-id="' + index + '">Update</button>\
                     <button data-toggle="modal" data-target="#remove-modal" class="btn btn-danger removeData" data-id="' + index + '">Delete</button></td>\
@@ -245,11 +260,16 @@
               // Upload completed successfully, now we can get the download URL
               uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                 // console.log('File available at', downloadURL);
+                var values = $("#addFile").serializeArray();
+                var judul_kegiatan = values[0].value;
+                var isi_kegiatan = values[0].value;
                 var userID = lastIndex + 1;
                 firebase.database().ref('Slider/' + userID).set({
                     desaId: "{{Auth::id()}}",
                     image: file.name,
                     url: downloadURL,
+                    judul_kegiatan: judul_kegiatan,
+                    isi_kegiatan: isi_kegiatan,
                 });
                 lastIndex = userID;
                 swal({
@@ -259,6 +279,8 @@
                   button: "OK",
                 });
                 document.getElementById("file").value = "";
+                document.getElementById("judul_kegiatan").value = "";
+                document.getElementById("isi_kegiatan").value = "";
               });
             });
         });
@@ -271,6 +293,18 @@
                 var values = snapshot.val();
                 var updateData =
                 '<div class="form-group">\
+                    <label for="judul_update" class="col-md-12 col-form-label">Judul Kegiatan</label>\
+                    <div class="col-md-12">\
+                        <input id="judul_update" type="text" class="form-control" name="updatejudul" value="' + values.judul_kegiatan + '" required autofocus>\
+                    </div>\
+                </div>\
+                <div class="form-group">\
+                    <label for="isi_update" class="col-md-12 col-form-label">Isi Kegiatan</label>\
+                    <div class="col-md-12">\
+                        <input id="isi_update" type="text" class="form-control" name="updateisi" value="' + values.isi_kegiatan + '" required autofocus>\
+                    </div>\
+                </div>\
+                <div class="form-group">\
                     <label for="image_update" class="col-md-12 col-form-label">Image</label>\
                     <div class="col-md-12">\
                         <input id="image_update" type="text" class="form-control" name="updateimage" value="' + values.image + '" readonly disabled required autofocus>\
@@ -366,6 +400,8 @@
                     image: file_update.name,
                     url: downloadURL,
                     desaId: "{{ Auth::id() }}",
+                    judul_kegiatan: values[0].value,
+                    isi_kegiatan: values[1].value,
                 };
 
                 var updates = {};
